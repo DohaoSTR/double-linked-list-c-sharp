@@ -7,17 +7,17 @@ namespace Double_Linked_List
     {
         public IEnumerator<T> GetEnumerator()
         {
-            yield return (T)GetEnumerator();
-        }
-
-        IEnumerator IEnumerable.GetEnumerator()
-        {
             DoubleNode<T> current = First;
             while (current != null)
             {
                 yield return current.Value;
                 current = current.Next;
             }
+        }
+
+        IEnumerator IEnumerable.GetEnumerator()
+        {
+            return ((IEnumerable)this).GetEnumerator();
         }
 
         public DoubleNode<T> Last { get; set; }
@@ -286,6 +286,6 @@ namespace Double_Linked_List
                 MergeSort(current, middleIndex + 1, highIndex);
                 Merge(current, lowIndex, middleIndex, highIndex);
             }
-        }
+        }      
     }
 }

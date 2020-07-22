@@ -1,11 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
+using System.Runtime.CompilerServices;
 
 namespace Double_Linked_List
 {
     public class Program
     {
-        private static readonly List<DoubleLinkedList<int>> ListDoubleLinkedLists;
+        private static readonly List<DoubleLinkedList<int>> ListDoubleLinkedLists = new List<DoubleLinkedList<int>>();
 
         private static readonly OutMethod write = Console.Write;
 
@@ -28,7 +30,7 @@ namespace Double_Linked_List
 
         private static void PrintMenuItems()
         {
-            write("0 - Выход из программы." +
+            write("\n0 - Выход из программы." +
                   "\n1 - Создать двусвязный линейный список." +
                   "\n2 - Добавить элемент в список." +
                   "\n3 - Удалить элемент из списка." +
@@ -48,7 +50,8 @@ namespace Double_Linked_List
             switch (pressedNumber)
             {
                 case 0:
-                    return;
+                    Process.GetCurrentProcess().Kill();
+                    break;
                 case 1:
                     CreateDoubleLinkedList();
 
@@ -130,6 +133,8 @@ namespace Double_Linked_List
                 case 9:
                     write("\nВведите идентификатор списка - ");
                     id = PressedNumber;
+
+                    write("\nЭлементы списка: ");
 
                     foreach (int element in ListDoubleLinkedLists[id])
                     {
