@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace Double_Linked_List
 {
-    class DoubleLinkedList<T> : IEnumerable<T>
+    public class DoubleLinkedList<T> : IEnumerable<T>
     {
         IEnumerator IEnumerable.GetEnumerator()
         {
@@ -41,6 +41,7 @@ namespace Double_Linked_List
                 return min;
             }
         }
+
         public T Max
         {
             get

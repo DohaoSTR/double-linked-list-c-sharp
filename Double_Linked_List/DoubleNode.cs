@@ -1,12 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Double_Linked_List
+﻿namespace Double_Linked_List
 {
-    class DoubleNode<T>
+    public sealed class DoubleNode<T>
     {
         public DoubleNode(T value)
         {
