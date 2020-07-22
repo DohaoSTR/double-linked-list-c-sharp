@@ -5,12 +5,12 @@ namespace Double_Linked_List
 {
     public class DoubleLinkedList<T> : IEnumerable<T>
     {
-        IEnumerator IEnumerable.GetEnumerator()
+        public IEnumerator<T> GetEnumerator()
         {
-            return ((IEnumerable)this).GetEnumerator();
+            yield return (T)GetEnumerator();
         }
 
-        IEnumerator<T> IEnumerable<T>.GetEnumerator()
+        IEnumerator IEnumerable.GetEnumerator()
         {
             DoubleNode<T> current = First;
             while (current != null)
@@ -87,75 +87,6 @@ namespace Double_Linked_List
             }
         }
 
-        private void Merge(DoubleLinkedList<T> current, int lowIndex, int middleIndex, int highIndex)
-        {
-            dynamic left = lowIndex;
-            dynamic right = middleIndex + 1;
-            dynamic tempArray = new int[highIndex - lowIndex + 1];
-            var index = 0;
-            while ((left <= middleIndex) && (right <= highIndex))
-            {
-                if (current[left] < current[right])
-                {
-                    tempArray[index] = current[left];
-                    left++;
-                }
-                else
-                {
-                    tempArray[index] = current[right];
-                    right++;
-                }
-                index++;
-            }
-            for (var i = left; i <= middleIndex; i++)
-            {
-                tempArray[index] = current[i];
-                index++;
-            }
-            for (var i = right; i <= highIndex; i++)
-            {
-                tempArray[index] = current[i];
-                index++;
-            }
-            for (var i = 0; i < tempArray.Length; i++)
-            {
-                current[lowIndex + i] = tempArray[i];
-            }
-        }
-
-        private void MergeSort(DoubleLinkedList<T> current, int lowIndex, int highIndex)
-        {
-            if (lowIndex < highIndex)
-            {
-                var middleIndex = (lowIndex + highIndex) / 2;
-                MergeSort(current, lowIndex, middleIndex);
-                MergeSort(current, middleIndex + 1, highIndex);
-                Merge(current, lowIndex, middleIndex, highIndex);
-            }
-        }
-
-        public void MergeSort()
-        {
-            MergeSort(this, 0, Count - 1);
-        }
-
-        public void InsertionSort()
-        {
-            DoubleNode<T> current = First;
-            while (current != null)
-            {
-                dynamic key = current.Value;
-                while (current.Previous != null && current.Previous.Value > key)
-                {
-                    var temp = current.Previous.Value;
-                    current.Previous.Value = current.Value;
-                    current.Value = temp;
-                    current = current.Previous;
-                }
-                current = current.Next;
-            }
-        }
-
         public void AddFirst(T value)
         {
             DoubleNode<T> node = new DoubleNode<T>(value);
@@ -193,6 +124,34 @@ namespace Double_Linked_List
                 temp.Next = node;
             }
             Count++;
+        }
+
+        public void Insert(int index, T value)
+        {
+            DoubleNode<T> node = new DoubleNode<T>(value);
+            if (index == 0)
+                AddFirst(value);
+            else if (index >= Count)
+                AddLast(value);
+            else
+            {
+                DoubleNode<T> temp = First;
+                int i = 0;
+                while (temp != null)
+                {
+                    if (index == i)
+                    {
+                        node.Previous = temp.Previous;
+                        node.Next = temp;
+                        temp.Previous.Next = node;
+                        temp.Previous = node;
+                        Count++;
+                        break;
+                    }
+                    i++;
+                    temp = temp.Next;
+                }
+            }
         }
 
         public bool Find(T value)
@@ -260,31 +219,72 @@ namespace Double_Linked_List
             return false;
         }
 
-        public void Insert(int index, T value)
+        public void InsertionSort()
         {
-            DoubleNode<T> node = new DoubleNode<T>(value);
-            if (index == 0)
-                AddFirst(value);
-            else if (index >= Count)
-                AddLast(value);
-            else
+            DoubleNode<T> current = First;
+            while (current != null)
             {
-                DoubleNode<T> temp = First;
-                int i = 0;
-                while (temp != null)
+                dynamic key = current.Value;
+                while (current.Previous != null && current.Previous.Value > key)
                 {
-                    if (index == i)
-                    {
-                        node.Previous = temp.Previous;
-                        node.Next = temp;
-                        temp.Previous.Next = node;
-                        temp.Previous = node;
-                        Count++;
-                        break;
-                    }
-                    i++;
-                    temp = temp.Next;
+                    var temp = current.Previous.Value;
+                    current.Previous.Value = current.Value;
+                    current.Value = temp;
+                    current = current.Previous;
                 }
+                current = current.Next;
+            }
+        }
+
+        public void MergeSort()
+        {
+            MergeSort(this, 0, Count - 1);
+        }
+
+        private void Merge(DoubleLinkedList<T> current, int lowIndex, int middleIndex, int highIndex)
+        {
+            dynamic left = lowIndex;
+            dynamic right = middleIndex + 1;
+            dynamic tempArray = new int[highIndex - lowIndex + 1];
+            var index = 0;
+            while ((left <= middleIndex) && (right <= highIndex))
+            {
+                if (current[left] < current[right])
+                {
+                    tempArray[index] = current[left];
+                    left++;
+                }
+                else
+                {
+                    tempArray[index] = current[right];
+                    right++;
+                }
+                index++;
+            }
+            for (var i = left; i <= middleIndex; i++)
+            {
+                tempArray[index] = current[i];
+                index++;
+            }
+            for (var i = right; i <= highIndex; i++)
+            {
+                tempArray[index] = current[i];
+                index++;
+            }
+            for (var i = 0; i < tempArray.Length; i++)
+            {
+                current[lowIndex + i] = tempArray[i];
+            }
+        }
+
+        private void MergeSort(DoubleLinkedList<T> current, int lowIndex, int highIndex)
+        {
+            if (lowIndex < highIndex)
+            {
+                var middleIndex = (lowIndex + highIndex) / 2;
+                MergeSort(current, lowIndex, middleIndex);
+                MergeSort(current, middleIndex + 1, highIndex);
+                Merge(current, lowIndex, middleIndex, highIndex);
             }
         }
     }
