@@ -1,13 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
-using System.Runtime.CompilerServices;
 
 namespace Double_Linked_List
 {
     public class Program
     {
-        private static readonly List<DoubleLinkedList<int>> ListDoubleLinkedLists = new List<DoubleLinkedList<int>>();
+        private static List<DoubleLinkedList<int>> ListDoubleLinkedLists;
 
         private static readonly OutMethod write = Console.Write;
 
@@ -53,6 +52,7 @@ namespace Double_Linked_List
                     Process.GetCurrentProcess().Kill();
                     break;
                 case 1:
+                    ListDoubleLinkedLists = new List<DoubleLinkedList<int>>();
                     CreateDoubleLinkedList();
 
                     write("\nИдентификатор списка - " + (ListDoubleLinkedLists.Count - 1));

@@ -7,11 +7,11 @@ namespace Double_Linked_List
     {
         public IEnumerator<T> GetEnumerator()
         {
-            DoubleNode<T> current = First;
-            while (current != null)
+            DoubleNode<T> currentNode = First;
+            while (currentNode != null)
             {
-                yield return current.Value;
-                current = current.Next;
+                yield return currentNode.Value;
+                currentNode = currentNode.Next;
             }
         }
 
@@ -30,13 +30,15 @@ namespace Double_Linked_List
         {
             get
             {
-                DoubleNode<T> current = First;
-                dynamic min = current.Value;
-                while (current != null)
+                DoubleNode<T> currentNode = First;
+                dynamic min = currentNode.Value;
+
+                while (currentNode != null)
                 {
-                    if (min > current.Value)
-                        min = current.Value;
-                    current = current.Next;
+                    if (min > currentNode.Value)
+                        min = currentNode.Value;
+
+                    currentNode = currentNode.Next;
                 }
                 return min;
             }
@@ -46,13 +48,15 @@ namespace Double_Linked_List
         {
             get
             {
-                DoubleNode<T> current = First;
-                dynamic max = current.Value;
-                while (current != null)
+                DoubleNode<T> currentNode = First;
+                dynamic max = currentNode.Value;
+
+                while (currentNode != null)
                 {
-                    if (max < current.Value)
-                        max = current.Value;
-                    current = current.Next;
+                    if (max < currentNode.Value)
+                        max = currentNode.Value;
+
+                    currentNode = currentNode.Next;
                 }
                 return max;
             }
@@ -62,26 +66,34 @@ namespace Double_Linked_List
         {
             get
             {
-                DoubleNode<T> current = First;
+                DoubleNode<T> currentNode = First;
                 int i = 0;
-                while (current != null)
+
+                while (currentNode != null)
                 {
                     if (index == i)
-                        return current.Value;
-                    current = current.Next;
+                    {
+                        return currentNode.Value;
+                    }   
+
+                    currentNode = currentNode.Next;
                     i++;
                 }
                 return default;
             }
             set
             {
-                DoubleNode<T> current = First;
+                DoubleNode<T> currentNode = First;
                 int i = 0;
-                while (current != null)
+
+                while (currentNode != null)
                 {
                     if (index == i)
-                        current.Value = value;
-                    current = current.Next;
+                    {
+                        currentNode.Value = value;
+                    }
+
+                    currentNode = currentNode.Next;
                     i++;
                 }
             }
@@ -91,8 +103,10 @@ namespace Double_Linked_List
         {
             DoubleNode<T> node = new DoubleNode<T>(value);
             DoubleNode<T> temp = First;
+
             node.Next = temp;
             node.Previous = null;
+
             if (Count == 0)
             {
                 First = node;
@@ -103,6 +117,7 @@ namespace Double_Linked_List
                 First = node;
                 temp.Previous = node;
             }
+
             Count++;
         }
 
@@ -110,9 +125,10 @@ namespace Double_Linked_List
         {
             DoubleNode<T> node = new DoubleNode<T>(value);
             DoubleNode<T> temp = Last;
+
             node.Previous = temp;
             node.Next = null;
-            Last = node;
+
             if (Count == 0)
             {
                 Last = node;
@@ -123,6 +139,7 @@ namespace Double_Linked_List
                 Last = node;
                 temp.Next = node;
             }
+
             Count++;
         }
 
@@ -130,13 +147,18 @@ namespace Double_Linked_List
         {
             DoubleNode<T> node = new DoubleNode<T>(value);
             if (index == 0)
+            {
                 AddFirst(value);
+            }
             else if (index >= Count)
+            {
                 AddLast(value);
+            }
             else
             {
                 DoubleNode<T> temp = First;
                 int i = 0;
+
                 while (temp != null)
                 {
                     if (index == i)
@@ -148,6 +170,7 @@ namespace Double_Linked_List
                         Count++;
                         break;
                     }
+
                     i++;
                     temp = temp.Next;
                 }
@@ -157,10 +180,14 @@ namespace Double_Linked_List
         public bool Find(T value)
         {
             DoubleNode<T> current = First;
+
             for (int i = 0; i < Count; i++)
             {
                 if (current.Value.Equals(value))
+                {
                     return true;
+                }
+
                 current = current.Next;
             }
             return false;
@@ -170,6 +197,7 @@ namespace Double_Linked_List
         {
             DoubleNode<T> current = First;
             int i = 0;
+
             while (current != null)
             {
                 if (index == i)
@@ -180,12 +208,14 @@ namespace Double_Linked_List
                 i++;
                 current = current.Next;
             }
+
             return false;
         }
 
         public bool Remove(int index)
         {
             DoubleNode<T> temp = First;
+
             if (index == 0)
             {
                 temp.Next.Previous = temp.Next;
@@ -193,7 +223,7 @@ namespace Double_Linked_List
                 Count--;
                 return true;
             }
-            else if (index == Count - 1)
+            else if (index == (Count - 1))
             {
                 temp.Previous = null;
                 Last = Last.Previous;
@@ -225,6 +255,7 @@ namespace Double_Linked_List
             while (current != null)
             {
                 dynamic key = current.Value;
+
                 while (current.Previous != null && current.Previous.Value > key)
                 {
                     var temp = current.Previous.Value;
@@ -232,14 +263,12 @@ namespace Double_Linked_List
                     current.Value = temp;
                     current = current.Previous;
                 }
+
                 current = current.Next;
             }
         }
 
-        public void MergeSort()
-        {
-            MergeSort(this, 0, Count - 1);
-        }
+        public void MergeSort() => MergeSort(this, 0, Count - 1);
 
         private void Merge(DoubleLinkedList<T> current, int lowIndex, int middleIndex, int highIndex)
         {
@@ -247,6 +276,7 @@ namespace Double_Linked_List
             dynamic right = middleIndex + 1;
             dynamic tempArray = new int[highIndex - lowIndex + 1];
             var index = 0;
+
             while ((left <= middleIndex) && (right <= highIndex))
             {
                 if (current[left] < current[right])
@@ -259,18 +289,22 @@ namespace Double_Linked_List
                     tempArray[index] = current[right];
                     right++;
                 }
+
                 index++;
             }
+
             for (var i = left; i <= middleIndex; i++)
             {
                 tempArray[index] = current[i];
                 index++;
             }
+
             for (var i = right; i <= highIndex; i++)
             {
                 tempArray[index] = current[i];
                 index++;
             }
+
             for (var i = 0; i < tempArray.Length; i++)
             {
                 current[lowIndex + i] = tempArray[i];
