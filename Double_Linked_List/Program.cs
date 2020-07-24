@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
-using System.Net.NetworkInformation;
 
 namespace Double_Linked_List
 {
@@ -13,25 +12,25 @@ namespace Double_Linked_List
 
         private static readonly InMethod readLine = Console.ReadLine;
 
-        private static readonly Dictionary<int, MenuOperation> operations;
+        private static readonly Dictionary<int, Operation> operations;
 
         static Program()
         {
             ListDoubleLinkedLists = new List<DoubleLinkedList<int>>();
 
-            operations = new Dictionary<int, MenuOperation>
+            operations = new Dictionary<int, Operation>
             {
-                { 0, DoExit },
-                { 1, CreateDoubleLinkedList },
-                { 2, AddElementToList },
-                { 3, DeleteElementFromList },
-                { 4, FindElementInList },
-                { 5, PrintCountOfList },
-                { 6, PrintMinElementOfList },
-                { 7, PrintMaxElementOfList },
-                { 8, SortListByTheMergeSort },
-                { 9, SortListByTheInsertionSort },
-                { 10, PrintAllElementsOfList }
+                { 0, new Operation("Выход из программы.", DoExit) },
+                { 1, new Operation("Создать двусвязный линейный список.", CreateDoubleLinkedList) },
+                { 2, new Operation( "Добавить элемент в список.", AddElementToList) },
+                { 3, new Operation("Удалить элемент из списка.", DeleteElementFromList) },
+                { 4, new Operation("Определить содержится ли значение в списке.", FindElementInList) },
+                { 5, new Operation("Вывести количество элементов в списке.", PrintCountOfList) },
+                { 6, new Operation("Вывести минимальное значение в списке.", PrintMinElementOfList) },
+                { 7, new Operation("Вывести максимальное значение в списке.", PrintMaxElementOfList) },
+                { 8, new Operation("Отсортировать массив методом слияния.", SortListByTheMergeSort) },
+                { 9, new Operation("Отсортировать массив методом вставки.", SortListByTheInsertionSort) },
+                { 10, new Operation("Вывести список по его номеру.", PrintAllElementsOfList) }
             };
         }
 
@@ -39,7 +38,7 @@ namespace Double_Linked_List
 
         private delegate string InMethod();
 
-        private delegate void MenuOperation();
+        private delegate void OperationDelegate();
 
         private static int PressedNumber => Convert.ToInt32(readLine());
 
@@ -54,18 +53,12 @@ namespace Double_Linked_List
 
         private static void PrintMenuItems()
         {
-            write("\n0 - Выход из программы." +
-                  "\n1 - Создать двусвязный линейный список." +
-                  "\n2 - Добавить элемент в список." +
-                  "\n3 - Удалить элемент из списка." +
-                  "\n4 - Определить содержится ли значение в списке." +
-                  "\n5 - Вывести количество элементов в списке." +
-                  "\n6 - Вывести минимальное значение в списке." +
-                  "\n7 - Вывести максимальное значение в списке." +
-                  "\n8 - Отсортировать массив методом слияния." +
-                  "\n9 - Отсортировать массив методом вставки." +
-                  "\n10 - Вывести список по его номеру." +
-                  "\nВведите цифру от 0 до 10 - ");
+            foreach(var el in operations)
+            {
+                write("\n" + el.Key + " - " + el.Value.Name);
+            }
+
+            write("\nВведите номер операции - ");
         }
 
         private static void SelectMenuItem(int operationNumber)
@@ -73,7 +66,7 @@ namespace Double_Linked_List
             if (!operations.ContainsKey(operationNumber))
                 throw new Exception("Данной операции не существует!");
             else
-                operations[operationNumber]();
+                operations[operationNumber].OperationDelegate();
         }
 
         private static void DoExit() => Process.GetCurrentProcess().Kill();
@@ -189,6 +182,19 @@ namespace Double_Linked_List
             foreach (int element in ListDoubleLinkedLists[id])
             {
                 write(element + " ");
+            }
+        }
+
+        private class Operation
+        {
+            public string Name { get; }
+
+            public OperationDelegate OperationDelegate { get; }
+
+            public Operation(string name, OperationDelegate operationDelegate)
+            {
+                Name = name;
+                OperationDelegate = operationDelegate;
             }
         }
     }
