@@ -7,7 +7,6 @@ namespace Double_Linked_List
 {
     public class Program
     {
-
         private static readonly List<DoubleLinkedList<int>> ListDoubleLinkedLists;
 
         private static readonly OutMethod write = Console.Write;
