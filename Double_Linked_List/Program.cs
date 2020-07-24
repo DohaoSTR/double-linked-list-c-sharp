@@ -162,21 +162,18 @@ namespace Double_Linked_List
         private static void SortListByTheMergeSort()
         {
             int id = GetIdOfList();
-
             ListDoubleLinkedLists[id].MergeSort();
         }
 
         private static void SortListByTheInsertionSort()
         {
             int id = GetIdOfList();
-
             ListDoubleLinkedLists[id].InsertionSort();
         }
 
         private static void PrintAllElementsOfList()
         {
             int id = GetIdOfList();
-
             write("\nЭлементы списка: ");
 
             foreach (int element in ListDoubleLinkedLists[id])
