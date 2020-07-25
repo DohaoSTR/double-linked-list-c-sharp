@@ -6,7 +6,7 @@ namespace Double_Linked_List
 {
     public class Program
     {
-        private static readonly List<DoubleLinkedList<int>> ListDoubleLinkedLists;
+        private static readonly List<DoubleLinkedList<int>> listDoubleLinkedLists;
 
         private static readonly OutMethod write = Console.Write;
 
@@ -16,7 +16,7 @@ namespace Double_Linked_List
 
         static Program()
         {
-            ListDoubleLinkedLists = new List<DoubleLinkedList<int>>();
+            listDoubleLinkedLists = new List<DoubleLinkedList<int>>();
 
             operations = new Dictionary<int, Operation>
             {
@@ -71,8 +71,8 @@ namespace Double_Linked_List
 
         private static void CreateDoubleLinkedList()
         {
-            ListDoubleLinkedLists.Add(new DoubleLinkedList<int>());
-            write("\nИдентификатор списка - " + (ListDoubleLinkedLists.Count - 1));
+            listDoubleLinkedLists.Add(new DoubleLinkedList<int>());
+            write("\nИдентификатор списка - " + (listDoubleLinkedLists.Count - 1));
         }
 
         private static int GetIdOfList
@@ -92,7 +92,7 @@ namespace Double_Linked_List
             write("\nВведите значение элемента - ");
             int value = PressedNumber;
 
-            ListDoubleLinkedLists[GetIdOfList].Insert(index, value);
+            listDoubleLinkedLists[GetIdOfList].Insert(index, value);
             write("\nЭлемент добавлен!");
         }
 
@@ -100,7 +100,7 @@ namespace Double_Linked_List
         {
             write("\nВведите индекс удаляемого элемента - ");
             int index = PressedNumber;
-            bool remove = ListDoubleLinkedLists[GetIdOfList].Remove(index);
+            bool remove = listDoubleLinkedLists[GetIdOfList].Remove(index);
 
             if (remove)
             {
@@ -117,7 +117,7 @@ namespace Double_Linked_List
             write("\nВведите значение искомого элемента - ");
             int value = PressedNumber;
 
-            bool find = ListDoubleLinkedLists[GetIdOfList].Find(value);
+            bool find = listDoubleLinkedLists[GetIdOfList].Find(value);
 
             if (find)
             {
@@ -129,21 +129,22 @@ namespace Double_Linked_List
             }
         }
 
-        private static void PrintCountOfList() => write("\nКоличество элементов в списке - " + ListDoubleLinkedLists[GetIdOfList].Count);
+        private static void PrintCountOfList() => write("\nКоличество элементов в списке - " + listDoubleLinkedLists[GetIdOfList].Count);
 
-        private static void PrintMinElementOfList() => write("\nМинимальное значение списка" + ListDoubleLinkedLists[GetIdOfList].Min);
+        private static void PrintMinElementOfList() => write("\nМинимальное значение списка" + listDoubleLinkedLists[GetIdOfList].Min);
 
-        private static void PrintMaxElementOfList() => write("\nМаксимальное значение списка" + ListDoubleLinkedLists[GetIdOfList].Max);
+        private static void PrintMaxElementOfList() => write("\nМаксимальное значение списка" + listDoubleLinkedLists[GetIdOfList].Max);
 
-        private static void SortListByTheMergeSort() => ListDoubleLinkedLists[GetIdOfList].MergeSort();
+        private static void SortListByTheMergeSort() => listDoubleLinkedLists[GetIdOfList].MergeSort();
 
-        private static void SortListByTheInsertionSort() => ListDoubleLinkedLists[GetIdOfList].InsertionSort();
+        private static void SortListByTheInsertionSort() => listDoubleLinkedLists[GetIdOfList].InsertionSort();
 
         private static void PrintAllElementsOfList()
         {
+            int id = GetIdOfList;
             write("\nЭлементы списка: ");
 
-            foreach (int element in ListDoubleLinkedLists[GetIdOfList])
+            foreach (int element in listDoubleLinkedLists[id])
             {
                 write(element + " ");
             }

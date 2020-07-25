@@ -101,11 +101,14 @@ namespace Double_Linked_List
 
         public void AddFirst(T value)
         {
-            DoubleNode<T> node = new DoubleNode<T>(value);
             DoubleNode<T> temp = First;
 
-            node.Next = temp;
-            node.Previous = null;
+            DoubleNode<T> node = new DoubleNode<T>(value)
+            {
+                Next = temp,
+                Previous = null
+            };
+
             First = node;
 
             if (Count == 0)
@@ -122,11 +125,14 @@ namespace Double_Linked_List
 
         public void AddLast(T value)
         {
-            DoubleNode<T> node = new DoubleNode<T>(value);
             DoubleNode<T> temp = Last;
 
-            node.Previous = temp;
-            node.Next = null;
+            DoubleNode<T> node = new DoubleNode<T>(value)
+            {
+                Previous = temp,
+                Next = null
+            };
+
             Last = node;
 
             if (Count == 0)
@@ -143,7 +149,7 @@ namespace Double_Linked_List
 
         public void Insert(int index, T value)
         {
-            DoubleNode<T> node = new DoubleNode<T>(value);
+
             if (index == 0)
             {
                 AddFirst(value);
@@ -161,11 +167,16 @@ namespace Double_Linked_List
                 {
                     if (index == i)
                     {
-                        node.Previous = temp.Previous;
-                        node.Next = temp;
+                        DoubleNode<T> node = new DoubleNode<T>(value)
+                        {
+                            Previous = temp.Previous,
+                            Next = temp
+                        };
+
                         temp.Previous.Next = node;
                         temp.Previous = node;
                         Count++;
+
                         break;
                     }
 
@@ -250,6 +261,7 @@ namespace Double_Linked_List
         public void InsertionSort()
         {
             DoubleNode<T> current = First;
+
             while (current != null)
             {
                 dynamic key = current.Value;
