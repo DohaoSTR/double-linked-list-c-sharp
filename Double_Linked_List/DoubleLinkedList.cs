@@ -106,15 +106,14 @@ namespace Double_Linked_List
 
             node.Next = temp;
             node.Previous = null;
+            First = node;
 
             if (Count == 0)
             {
-                First = node;
                 Last = First;
             }
             else
             {
-                First = node;
                 temp.Previous = node;
             }
 
@@ -128,15 +127,14 @@ namespace Double_Linked_List
 
             node.Previous = temp;
             node.Next = null;
+            Last = node;
 
             if (Count == 0)
             {
-                Last = node;
                 First = Last;
             }
             else
             {
-                Last = node;
                 temp.Next = node;
             }
 
