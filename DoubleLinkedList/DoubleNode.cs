@@ -1,6 +1,6 @@
-﻿namespace Double_Linked_List
+﻿namespace DoubleLinkedList
 {
-    public sealed class DoubleNode<T>
+    public class DoubleNode<T>
     {
         public DoubleNode(T value)
         {

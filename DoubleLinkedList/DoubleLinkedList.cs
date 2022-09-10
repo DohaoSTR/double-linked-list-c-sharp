@@ -1,16 +1,18 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 
-namespace Double_Linked_List
+namespace DoubleLinkedList
 {
     public class DoubleLinkedList<T> : IEnumerable<T>
     {
         public IEnumerator<T> GetEnumerator()
         {
             DoubleNode<T> currentNode = First;
+
             while (currentNode != null)
             {
                 yield return currentNode.Value;
+
                 currentNode = currentNode.Next;
             }
         }
@@ -20,11 +22,11 @@ namespace Double_Linked_List
             return ((IEnumerable)this).GetEnumerator();
         }
 
-        public DoubleNode<T> Last { get; set; }
+        public DoubleNode<T> Last { get; private set; }
 
-        public DoubleNode<T> First { get; set; }
+        public DoubleNode<T> First { get; private set; }
 
-        public int Count { get; set; }
+        public int Count { get; private set; }
 
         public T Min
         {
@@ -36,10 +38,13 @@ namespace Double_Linked_List
                 while (currentNode != null)
                 {
                     if (min > currentNode.Value)
+                    {
                         min = currentNode.Value;
+                    }
 
                     currentNode = currentNode.Next;
                 }
+
                 return min;
             }
         }
@@ -54,7 +59,9 @@ namespace Double_Linked_List
                 while (currentNode != null)
                 {
                     if (max < currentNode.Value)
+                    {
                         max = currentNode.Value;
+                    }
 
                     currentNode = currentNode.Next;
                 }
@@ -149,7 +156,6 @@ namespace Double_Linked_List
 
         public void Insert(int index, T value)
         {
-
             if (index == 0)
             {
                 AddFirst(value);
@@ -199,6 +205,7 @@ namespace Double_Linked_List
 
                 current = current.Next;
             }
+
             return false;
         }
 
@@ -214,6 +221,7 @@ namespace Double_Linked_List
                     current.Value = newValue;
                     return true;
                 }
+
                 i++;
                 current = current.Next;
             }
@@ -230,31 +238,39 @@ namespace Double_Linked_List
                 temp.Next.Previous = temp.Next;
                 First = First.Next;
                 Count--;
+
                 return true;
             }
             else if (index == (Count - 1))
             {
                 temp.Previous = null;
                 Last = Last.Previous;
+
                 Count--;
+
                 return true;
             }
             else
             {
                 int i = 0;
+
                 while (temp != null)
                 {
                     if (i == index)
                     {
                         temp.Previous.Next = temp.Next;
                         temp.Next.Previous = temp.Previous;
+
                         Count--;
+
                         return true;
                     }
+
                     temp = temp.Next;
                     i++;
                 }
             }
+
             return false;
         }
 
@@ -285,6 +301,7 @@ namespace Double_Linked_List
             dynamic left = lowIndex;
             dynamic right = middleIndex + 1;
             dynamic tempArray = new int[highIndex - lowIndex + 1];
+
             var index = 0;
 
             while ((left <= middleIndex) && (right <= highIndex))
@@ -326,6 +343,7 @@ namespace Double_Linked_List
             if (lowIndex < highIndex)
             {
                 var middleIndex = (lowIndex + highIndex) / 2;
+
                 MergeSort(current, lowIndex, middleIndex);
                 MergeSort(current, middleIndex + 1, highIndex);
                 Merge(current, lowIndex, middleIndex, highIndex);

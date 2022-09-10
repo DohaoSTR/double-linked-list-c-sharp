@@ -1,4 +1,4 @@
-﻿namespace Double_Linked_List
+﻿namespace DoubleLinkedList
 {
     public class Operation
     {

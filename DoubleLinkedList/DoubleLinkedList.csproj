@@ -6,8 +6,8 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProjectGuid>{64185384-61A4-4837-A438-79FBC3C02CFD}</ProjectGuid>
     <OutputType>Exe</OutputType>
-    <RootNamespace>Double_Linked_List</RootNamespace>
-    <AssemblyName>Double_Linked_List</AssemblyName>
+    <RootNamespace>DoubleLinkedList</RootNamespace>
+    <AssemblyName>DoubleLinkedList</AssemblyName>
     <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
